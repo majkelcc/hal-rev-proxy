@@ -1,0 +1,23 @@
+#!/usr/bin/env bash -eu
+
+project_name=$1
+config_file=`realpath $2`
+
+cd $(dirname $(readlink "${BASH_SOURCE[0]}"))
+
+running() {
+  ! test -z `docker ps -q --filter name=^/chang-rev-proxy$`
+}
+
+start() {
+  docker-compose up -d
+}
+
+if [[ ! -n `docker network ls -qf "name=^chang-rev-proxy$"` ]]; then
+  docker network create chang-rev-proxy
+fi
+
+running || start
+
+docker cp "${config_file}" chang-rev-proxy:/nginx.d/${project_name}.conf
+docker exec -it chang-rev-proxy nginx -s reload

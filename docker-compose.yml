@@ -1,0 +1,14 @@
+version: '2'
+services:
+
+  nginx:
+    build: .
+    container_name: chang-rev-proxy
+    networks:
+      - chang-rev-proxy
+    ports:
+      - 80:80
+
+networks:
+  chang-rev-proxy:
+    external: true
