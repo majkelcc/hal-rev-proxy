@@ -3,7 +3,7 @@
 project_name=$1
 config_file=`realpath $2`
 
-cd $(dirname $(readlink "${BASH_SOURCE[0]}"))
+cd "__HOMEBREW_PREFIX__"
 
 running() {
   ! test -z `docker ps -q --filter name=^/chang-rev-proxy$`
