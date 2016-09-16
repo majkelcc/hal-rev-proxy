@@ -2,7 +2,7 @@ version: '2'
 services:
 
   nginx:
-    build: .
+    image: chang-rev-proxy
     container_name: chang-rev-proxy
     networks:
       - chang-rev-proxy
